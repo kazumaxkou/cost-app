@@ -12,7 +12,7 @@ if "total_sum" not in st.session_state:
 
 # 入力
 product_type = st.selectbox("製品タイプ", ["A", "B"])
-time = st.number_input("加工時間（時間）", min_value=0)
+time = st.number_input("加工時間（時間）", min_value=0.0, step=0.5)
 
 # 計算ボタン
 if st.button("計算"):
