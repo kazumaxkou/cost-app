@@ -37,14 +37,25 @@ if st.button("計算"):
 
     current_data = (product_type, time, total)
 
-    if st.session_state.last_saved != current_data:
-        with open("result.csv", "a", encoding="utf-8") as f:
-            f.write(f"{product_type},{time},{total}\n")
-            with open("result.csv", "rb") as f:
-                st.download_button("CSVダウンロード", f, "result.csv")
+# 保存処理（ボタン押したときだけ）
+if st.session_state.last_saved != current_data:
+    with open("result.csv", "a", encoding="utf-8") as f:
+        f.write(f"{product_type},{time},{total}\n")
 
-        st.session_state.last_saved = current_data
+    st.session_state.last_saved = current_data
 
+
+# ダウンロードボタン（常に表示）
+import os
+
+if os.path.exists("result.csv"):
+    with open("result.csv", "rb") as f:
+        st.download_button(
+            label="CSVダウンロード",
+            data=f,
+            file_name="result.csv",
+            mime="text/csv"
+        )
     # 表示用文字
     output = f"製品タイプ:{product_type} / 加工時間:{time}h"
     if discount_flag:
