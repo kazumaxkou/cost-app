@@ -40,6 +40,8 @@ if st.button("計算"):
     if st.session_state.last_saved != current_data:
         with open("result.csv", "a", encoding="utf-8") as f:
             f.write(f"{product_type},{time},{total}\n")
+            with open("result.csv", "rb") as f:
+                st.download_button("CSVダウンロード", f, "result.csv")
 
         st.session_state.last_saved = current_data
 
